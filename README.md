@@ -1,4 +1,6 @@
-Projeto - ITP
+# Projeto ITP
+Projeto de ITP sobre **Desenho gráfico**
+## Componentes
 
-* Norton Lincoln
-* Thiago Vinícius
+* **Norton Lincoln**
+* **Thiago Vinícius**
