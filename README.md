@@ -1,6 +1,5 @@
 # Projeto ITP
-Projeto de ITP sobre **Desenho gráfico**
+Repoitório do projeto de ITP sobre **desenho gráfico**.
 ## Componentes
-
 * [Norton Lincoln](https://github.com/Lincoln500)
 * [Thiago Vinícius](https://github.com/Kathamala)
