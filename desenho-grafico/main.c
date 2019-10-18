@@ -6,9 +6,8 @@ typedef struct
     int r, g, b;
 } pixel;
 
-int corAtual(int r, int g, int b) {
+void corAtual(int r, int g, int b) {
     pixel cor;
-    int i;
     cor.r = r;
     cor.g = g;
     cor.b = b;
