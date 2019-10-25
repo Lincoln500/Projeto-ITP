@@ -13,14 +13,14 @@ void corAtual(int r, int g, int b) {
 }
 
 int main() {
-    int width = 2, height = 5, r, g, b, i, j;
+    int width = 2, height = 5, r, g, b, i, j, linha_atual = 0;
     FILE *instrucoes;
     char linha[100], *resultado, nome_arquivo[30];
-    pixel cor, **imagem;
-
-    cor.r = 0;
-    cor.g = 0;
-    cor.b = 0;
+    pixel cor_atual, **imagem, color;
+    line linha_;
+    cor_atual.r = 0;
+    cor_atual.g = 0;
+    cor_atual.b = 0;
 
     //Ler Instrucao
     if ((instrucoes = fopen("instrucoes.txt", "r")) == NULL) {
@@ -31,15 +31,34 @@ int main() {
             if(resultado != NULL){
                 //IMAGE
                 if(strstr(linha, "image")){
-                    rewind(instrucoes);
+                    fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "image %d %d\n", &width, &height);
-                    criar_imagem(width, height, imagem);
+                    imagem = criar_imagem(width, height, imagem);  
+                }
+                //CLEAR
+                else if(strstr(linha, "clear")){
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "clear %d %d %d\n", &color.r, &color.g, &color.b);
+                    clear(color.r, color.g, color.b, width, height, imagem);
+                }
+                //COLOR
+                else if(strstr(linha, "color")){
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "color %d %d %d\n", &cor_atual.r, &cor_atual.g, &cor_atual.b);                    
+                }
+                //LINE
+                else if(strstr(linha, "line")){
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "line %d %d %d %d\n", &linha_.linha_inicial, &linha_.linha_final, &linha_.coluna_inicial, &linha_.coluna_final);
+                    drawLine(linha_.linha_inicial, linha_.linha_final, linha_.coluna_inicial, linha_.coluna_final, cor_atual);
                 }
                 //SAVE
-                if(strstr(linha, "save")){
+                else if(strstr(linha, "save")){
+                    fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "save %s", nome_arquivo);
-                    //salvar(nome_arquivo, width, height, imagem);
-                }                
+                    salvar(nome_arquivo, width, height, imagem);
+                }           
+                linha_atual += strlen(linha);   
             }
         }
         printf("Arquivo Encerrado!\n");
