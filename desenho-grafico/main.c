@@ -50,7 +50,7 @@ int main() {
                 else if(strstr(linha, "line")){
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "line %d %d %d %d\n", &linha_.linha_inicial, &linha_.linha_final, &linha_.coluna_inicial, &linha_.coluna_final);
-                    drawLine(linha_.linha_inicial, linha_.linha_final, linha_.coluna_inicial, linha_.coluna_final, cor_atual);
+                    drawLine(linha_.linha_inicial, linha_.linha_final, linha_.coluna_inicial, linha_.coluna_final, cor_atual, imagem);
                 }
                 //SAVE
                 else if(strstr(linha, "save")){

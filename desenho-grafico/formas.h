@@ -15,7 +15,7 @@ typedef struct{
     int vertices;
 } polygon;
 
-void drawLine(int linha_inicial, int linha_final, int coluna_inicial, int coluna_final, pixel corAtual);
+void drawLine(int linha_inicial, int linha_final, int coluna_inicial, int coluna_final, pixel corAtual, pixel **imagem);
 void drawCircle(int linha_central, int coluna_central, int raio, int corAtual);
 void drawRect(int x, int y, int width, int height);
 void drawPolygon(int vertices);
