@@ -1,7 +1,6 @@
-image 600 600
+image 600 800
 clear 0 0 255
 color 0 255 0
-line 200 300 400 500
-color 255 255 255
-line 600 400 400 600
+line 123 543 200 432
+line 0 0 400 400
 save texte.ppm

@@ -1,7 +1,7 @@
 all: main
 
 main: formas.o arquivos.o main.c
-	gcc main.c -o main formas.o arquivos.o && ./main
+	gcc main.c -o main formas.o arquivos.o && ./main -lm
 
 formas.o: formas.c
 	gcc -c formas.c
