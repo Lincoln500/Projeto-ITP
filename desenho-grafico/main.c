@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "formas.h"
-#include "arquivos.h"
 #include <string.h>
+#include "arquivos.h"
+#include "formas.h"
 
 void corAtual(int r, int g, int b) {
     pixel cor;
@@ -26,39 +26,57 @@ int main() {
     if ((instrucoes = fopen("instrucoes.txt", "r")) == NULL) {
         printf("\nERRO: Arquivo instrucoes.txt nao pode ser aberto.");
     } else {
-        while(!feof(instrucoes)){
+        while (!feof(instrucoes)) {
             resultado = fgets(linha, 100, instrucoes);
-            if(resultado != NULL){
+            if (resultado != NULL) {
                 //IMAGE
-                if(strstr(linha, "image")){
+                if (strstr(linha, "image")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "image %d %d\n", &width, &height);
-                    imagem = criar_imagem(width, height, imagem);  
+                    imagem = criar_imagem(width, height, imagem);
                 }
                 //CLEAR
-                else if(strstr(linha, "clear")){
+                else if (strstr(linha, "clear")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "clear %d %d %d\n", &color.r, &color.g, &color.b);
                     clear(color.r, color.g, color.b, width, height, imagem);
                 }
                 //COLOR
-                else if(strstr(linha, "color")){
+                else if (strstr(linha, "color")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
-                    fscanf(instrucoes, "color %d %d %d\n", &cor_atual.r, &cor_atual.g, &cor_atual.b);                    
+                    fscanf(instrucoes, "color %d %d %d\n", &cor_atual.r, &cor_atual.g, &cor_atual.b);
                 }
                 //LINE
-                else if(strstr(linha, "line")){
+                else if (strstr(linha, "line")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "line %d %d %d %d\n", &linha_.linha_inicial, &linha_.linha_final, &linha_.coluna_inicial, &linha_.coluna_final);
                     drawLine(linha_.linha_inicial, linha_.linha_final, linha_.coluna_inicial, linha_.coluna_final, cor_atual, imagem);
                 }
+                //POLYGON
+                /*
+                else if (strstr(linha, "polygon")) {
+                    int qtd_vertices;
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "polygon %d", &qtd_vertices);
+                    int total_vertices = qtd_vertices * 2;
+                    int vertices[total_vertices];
+                    for (i = 0; i < total_vertices; i++) {
+                        fscanf(instrucoes, "%d", &vertices[i]);
+                    }
+                    for (i = 0; i < qtd_vertices; i += 2) {
+                        drawLine(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3], cor_atual, imagem);
+                    }
+                    drawLine(vertices[(total_vertices)-2], vertices[(total_vertices)-1], vertices[0], vertices[1], cor_atual, imagem);
+                }
+                */
                 //SAVE
-                else if(strstr(linha, "save")){
+                else if (strstr(linha, "save")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "save %s", nome_arquivo);
                     salvar(nome_arquivo, width, height, imagem);
-                }           
-                linha_atual += strlen(linha);   
+                }
+
+                linha_atual += strlen(linha);
             }
         }
         printf("Arquivo Encerrado!\n");
