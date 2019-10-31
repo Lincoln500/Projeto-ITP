@@ -23,7 +23,7 @@ int main() {
     cor_atual.b = 0;
 
     //Ler Instrucao
-    if ((instrucoes = fopen("instrucoes.txt", "r")) == NULL) {
+    if ((instrucoes = fopen("instrucoes.txt", "rb+")) == NULL) {
         printf("\nERRO: Arquivo instrucoes.txt nao pode ser aberto.");
     } else {
         while (!feof(instrucoes)) {
@@ -53,22 +53,23 @@ int main() {
                     drawLine(linha_.linha_inicial, linha_.linha_final, linha_.coluna_inicial, linha_.coluna_final, cor_atual, imagem);
                 }
                 //POLYGON
-                /*
                 else if (strstr(linha, "polygon")) {
-                    int qtd_vertices;
+                    int qtd_vertices, *vertices;
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "polygon %d", &qtd_vertices);
+
                     int total_vertices = qtd_vertices * 2;
-                    int vertices[total_vertices];
+
+                    vertices = (int*)calloc(total_vertices, sizeof(int));
+
                     for (i = 0; i < total_vertices; i++) {
-                        fscanf(instrucoes, "%d", &vertices[i]);
+                        fscanf(instrucoes, "%d ", &vertices[i]);
                     }
                     for (i = 0; i < qtd_vertices; i += 2) {
                         drawLine(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3], cor_atual, imagem);
                     }
                     drawLine(vertices[(total_vertices)-2], vertices[(total_vertices)-1], vertices[0], vertices[1], cor_atual, imagem);
                 }
-                */
                 //SAVE
                 else if (strstr(linha, "save")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);

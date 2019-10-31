@@ -4,12 +4,7 @@
 
 void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
     int i, j;
-    
-    double inclinacao = (double)((x2-x1)/ (double)(y2-y1));
-    if(inclinacao > 1 || inclinacao < -1){
-        inclinacao = (double)((y2-y1)/ (double)(x2-x1));
-    }
-
+    double inclinacao = fabs((double)((y2-y1)/ (double)(x2-x1)));
     double referencia = inclinacao;
     printf("%lf\n", inclinacao);
 
@@ -72,56 +67,131 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
         }      
     }
     else{
-        if(x1<x2){
-            if(y1<y2){
-                j=y1;
-                for(i=x1;i<x2;i++){
-                    imagem[j][i] = corAtual;
-                    referencia += fabs(inclinacao);
-                    if(referencia >= 1){
-                        j++;
-                        referencia = inclinacao + (referencia-1);
+        if(fabs(x1-x2)>fabs(y1-y2)){
+            if(x1<x2){
+                if(y1<y2){
+                    j = y1;
+                    for(i=x1;i<=x2;i++){
+                        if(referencia >= 1){
+                            j++;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }
+                        referencia += inclinacao;
+                        imagem[j][i] = corAtual;
+                    }
+                }
+                else if(y1>y2){               
+                    j=y1;
+                    for(i=x1;i<x2;i++){
+                        if(referencia >= 1){
+                            j--;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                    
                     }
                 }
             }
-            else if(y1>y2){
-                j=y2;
-                for(i=x1;i<x2;i++){
-                    imagem[j][i] = corAtual;
-                    referencia += fabs(inclinacao);
-                    if(referencia >= 1){
-                        j++;
-                        referencia = inclinacao + (referencia-1);
+            else if(x1>x2){
+                if(y1<y2){
+                    j=y1;
+                    for(i=x1;i>x2;i--){
+                        if(referencia >= 1){
+                            j++;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                     
                     }
+                }
+                else if(y1>y2){
+                    j=y1;
+                    for(i=x1;i>x2;i--){
+                        if(referencia >= 1){
+                            j--;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }   
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                     
+                    }                
                 }
             }
         }
-        else if(x1>x2){
-            if(y1>y2){
-                j=y2;
-                for(i=x2;i<x1;i++){
-                    imagem[j][i] = corAtual;
-                    referencia += fabs(inclinacao);
-                    if(referencia >= 1){
-                        j++;
-                        referencia = inclinacao  + (referencia-1);
+        else if(fabs(x1-x2)<fabs(y1-y2)){
+            if(x1<x2){
+                if(y1<y2){
+                    i=x1;
+                    inclinacao = fabs((double)((x2-x1)/ (double)(y2-y1)));
+                    referencia = inclinacao;
+                    for(j=y1;j<y2;j++){
+                        if(referencia >= 1){
+                            i++;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }   
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                    
                     }
                 }
+                else if(y1>y2){
+                    i=x1;
+                    inclinacao = fabs((double)((x2-x1)/ (double)(y2-y1)));
+                    referencia = inclinacao;
+                    for(j=y1;j>y2;j--){
+                        if(referencia >= 1){
+                            i++;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }   
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                    
+                    }                    
+                }   
             }
-            else if(y1<y2){
-                j=y1;
-                for(i=x2;i<x1;i++){
-                    imagem[j][i] = corAtual;
-                    referencia += fabs(inclinacao);
-                    if(referencia >= 1){
-                        j++;
-                        referencia = inclinacao + (referencia-1);
+            else if(x1>x2){
+                if(y1<y2){
+                    i=x1;
+                    inclinacao = fabs((double)((x2-x1)/ (double)(y2-y1)));
+                    referencia = inclinacao;
+                    for(j=y1;j<y2;j++){
+                        if(referencia >= 1){
+                            i--;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }   
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                    
+                    }                    
+                }
+                else if(y1>y2){
+                    i=x1;
+                    inclinacao = fabs((double)((x2-x1)/ (double)(y2-y1)));
+                    referencia = inclinacao;
+                    for(j=y1;j>y2;j--){
+                        if(referencia >= 1){
+                            i--;
+                            referencia = inclinacao + (referencia - 1);
+                            imagem[j][i] = corAtual;
+                            continue;
+                        }   
+                        referencia += fabs(inclinacao);
+                        imagem[j][i] = corAtual;                    
                     }
                 }
-            }
+            }            
         }
     }
-
     printf("Linha desenhada!\n");
 }
 void drawCircle(int linha_central, int coluna_central, int raio, int corAtual){
