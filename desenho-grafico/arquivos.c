@@ -4,6 +4,7 @@
 
 pixel** criar_imagem(int width, int height, pixel **matriz) {
     int i, j;
+    height++;
     //MATRIZ
     matriz = (pixel**)calloc(height, sizeof(pixel*));
     for(i=0;i<height;i++){

@@ -16,9 +16,10 @@ typedef struct{
 } polygon;
 
 void drawLine(int linha_inicial, int linha_final, int coluna_inicial, int coluna_final, pixel corAtual, pixel **imagem);
-void drawCircle(int linha_central, int coluna_central, int raio, int corAtual);
-void drawRect(int x, int y, int width, int height);
-void drawPolygon(int vertices);
+void drawCircle(int x, int y, int raio, pixel corAtual, pixel **imagem);
+void drawRect(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem);
+void drawPolygon(int qtd_vertices, int total_vertices, int vertices[], pixel cor_atual, pixel **imagem);
+void fill();
 void clear(int r, int g, int b, int width, int height, pixel **imagem);
 
 #endif

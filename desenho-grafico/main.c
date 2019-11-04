@@ -65,11 +65,22 @@ int main() {
                     for (i = 0; i < total_vertices; i++) {
                         fscanf(instrucoes, "%d ", &vertices[i]);
                     }
-                    for (i = 0; i < qtd_vertices; i += 2) {
-                        drawLine(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3], cor_atual, imagem);
-                    }
-                    drawLine(vertices[(total_vertices)-2], vertices[(total_vertices)-1], vertices[0], vertices[1], cor_atual, imagem);
+                    drawPolygon(qtd_vertices, total_vertices, vertices, cor_atual, imagem);
                 }
+                //RECTANGLE
+                else if (strstr(linha, "rect")) {
+                    int x1, y1, x2, y2;
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "rect %d %d %d %d\n", &x1, &y1, &x2, &y2);
+                    drawRect(x1, y1, x2, y2, cor_atual, imagem);
+                }        
+                //CIRCLE
+                else if (strstr(linha, "circle")) {
+                    int x, y, raio;
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "circle %d %d %d\n", &x, &y, &raio);
+                    drawCircle(x, y, raio, cor_atual, imagem);
+                }         
                 //SAVE
                 else if (strstr(linha, "save")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
@@ -82,30 +93,5 @@ int main() {
         }
         printf("Arquivo Encerrado!\n");
     }
-
-    // do {
-    //     scanf("%d", &op);
-    //     switch (op) {
-    //         case 1:
-    //             criar_imagem(width, height);
-    //             break;
-    //         case 2:
-    //             printf("Defina uma cor (r g b)\n");
-    //             scanf("%d %d %d", &r, &g, &b);
-    //             corAtual(r, g, b);
-    //             break;
-    //         case 3:
-    //             printf("Digite as cores para limpar a tela (r g b)\n");
-    //             scanf("%d %d %d", &r, &g, &b);
-    //             clear(r, g, b, width, height, imagem);
-    //             break;
-    //         case 9:
-    //             break;
-    //         default:
-    //             printf("Valor invalido\n");
-    //             break;
-    //     }
-    // } while (op != 9);
-
     return 0;
 }

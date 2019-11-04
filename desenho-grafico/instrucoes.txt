@@ -1,5 +1,22 @@
-image 600 800
-clear 0 0 255
-color 0 0 0
-polygon 3 123 321 456 654 350 600
+image 600 400
+clear 0 0 0
+color 255 255 255
+line 300 0 300 400
+line 0 0 600 400
+line 0 200 600 200
+line 0 400 600 0
+color 255 255 0
+line 0 400 600 200
+line 0 200 600 0
+color 0 255 255
+line 0 0 600 200
+line 0 200 600 400
+color 255 0 0
+line 150 400 300 0
+line 150 0 300 400
+color 0 255 0
+line 300 0 450 400
+line 300 400 450 0
+polygon 3 200 200 300 200 250 300
+rect 200 200 400 300
 save texte.ppm

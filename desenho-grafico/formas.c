@@ -194,15 +194,24 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
     }
     printf("Linha desenhada!\n");
 }
-void drawCircle(int linha_central, int coluna_central, int raio, int corAtual){
-
+void drawCircle(int x, int y, int raio, pixel corAtual, pixel **imagem){
 }
-void drawRect(int x, int y, int width, int height){
-
+void drawRect(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
+    drawLine(x1, y1, x2, y1, corAtual, imagem);
+    drawLine(x2, y1, x2, y2, corAtual, imagem);
+    drawLine(x2, y2, x1, y2, corAtual, imagem);
+    drawLine(x1, y2, x1, y1, corAtual, imagem);
 }
-void drawPolygon(int vertices){
-
+void drawPolygon(int qtd_vertices, int total_vertices, int vertices[], pixel cor_atual, pixel **imagem){
+    int i;
+    for (i = 0; i < total_vertices-2; i += 2) {
+        drawLine(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3], cor_atual, imagem);
+    }
+    drawLine(vertices[(total_vertices)-2], vertices[(total_vertices)-1], vertices[0], vertices[1], cor_atual, imagem);
 }
+void fill(){
+
+};
 void clear(int r, int g, int b, int width, int height, pixel** imagem) {
     int i, j;
     for (i = 0; i < height; i++) {
