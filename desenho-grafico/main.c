@@ -79,7 +79,7 @@ int main() {
                     int x, y, raio;
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "circle %d %d %d\n", &x, &y, &raio);
-                    drawCircle(x, y, raio, cor_atual, imagem);
+                    drawCircle(x, y, raio, cor_atual, imagem, width, height);
                 }         
                 //SAVE
                 else if (strstr(linha, "save")) {

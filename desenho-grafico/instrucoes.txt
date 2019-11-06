@@ -17,6 +17,15 @@ line 150 0 300 400
 color 0 255 0
 line 300 0 450 400
 line 300 400 450 0
-polygon 3 200 200 300 200 250 300
-rect 200 200 400 300
-save texte.ppm
+color 16 124 212
+circle 300 200 50
+color 164 89 170
+circle 0 0 50
+circle 600 0 50
+circle 0 400 50
+circle 600 400 50
+circle 300 0 50
+circle 300 400 50
+circle 0 200 50
+circle 600 200 50
+save reposicao.ppm

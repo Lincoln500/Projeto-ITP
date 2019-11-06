@@ -42,10 +42,10 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
                 }                 
             }
             else{
-                j=y2;
+                j=y1;
                 for(i=x1;i<x2;i++){
                     imagem[j][i] = corAtual;
-                    j++;
+                    j--;
                 }                     
             }
         }
@@ -58,10 +58,10 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
                     }   
                 }               
             else{
-                j=y1;
+                j=y2;
                 for(i=x2;i<x1;i++){
                     imagem[j][i] = corAtual;
-                    j--;
+                    j++;
                     }                                
             }
         }      
@@ -194,7 +194,71 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
     }
     printf("Linha desenhada!\n");
 }
-void drawCircle(int x, int y, int raio, pixel corAtual, pixel **imagem){
+void drawCircle(int x, int y, int raio, pixel corAtual, pixel **imagem, int width, int height){
+    int d = 1-raio;
+    int i = 0;
+    int j = raio;
+    if(y-j >= 0 && y-j < height){
+        imagem[y-j][x] = corAtual;
+    }
+    if(y+j >= 0 && y+j < height){
+        imagem[y+j][x] = corAtual;
+    }
+    //Octante 1
+    while(fabs(i)<=fabs(j)){
+        if(d<0){
+            d = d+(2*(i-1))+3;
+        }
+        else{
+            d = d+(2*((i-j))-1)+5;
+            j--;
+        }
+        i++;
+        if(y-j >= 0 && y-j < height){
+            if(x-i >= 0 && x-i < width){
+                imagem[y-j][x-i] = corAtual;
+            }
+            if(x+i >= 0 && x+i < width){
+                imagem[y-j][x+i] = corAtual;
+            }
+        }
+        if(y+j > 0 && y+j < height){
+            if(x+i >= 0 && x+i < width){
+                imagem[y+j][x+i] = corAtual;
+            }
+            if(x-i >= 0 && x-i < width){
+                imagem[y+j][x-i] = corAtual;
+            }
+        }  
+    }
+    //Octante 2
+    while(j!=0){
+        if(d<0){
+            d = d+(2*(j-1))+3;
+        }
+        else{
+            d = d+(2*((j-i)-1))-8;
+            i++;
+        }
+        j--;
+        if(y-j >= 0 && y-j < height){
+            if(x-i >= 0 && x-i < width){
+                imagem[y-j][x-i] = corAtual;
+            }
+            if(x+i >= 0 && x+i < width){
+                imagem[y-j][x+i] = corAtual;
+            }
+        }
+        if(y+j >= 0 && y+j < height){
+            if(x+i >= 0 && x+i < width){
+                imagem[y+j][x+i] = corAtual;
+            }
+            if(x-i >= 0 && x-i < width){
+                imagem[y+j][x-i] = corAtual;
+            }
+        }  
+    }
+    printf("Circulo desenhado!\n");
 }
 void drawRect(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem){
     drawLine(x1, y1, x2, y1, corAtual, imagem);
