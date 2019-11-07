@@ -2,24 +2,24 @@
 #define FORMAS_H
 #include "arquivos.h"
 
-typedef struct{
+typedef struct {
     int linha_inicial, linha_final, coluna_inicial, coluna_final;
-}line;
-typedef struct{
+} line;
+typedef struct {
     int linha_central, coluna_central, raio;
 } circle;
-typedef struct{
+typedef struct {
     int x, y, width, height;
 } rect;
-typedef struct{
+typedef struct {
     int vertices;
 } polygon;
 
 void drawLine(int linha_inicial, int linha_final, int coluna_inicial, int coluna_final, pixel corAtual, pixel **imagem);
 void drawCircle(int x, int y, int raio, pixel corAtual, pixel **imagem, int width, int height);
 void drawRect(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem);
-void drawPolygon(int qtd_vertices, int total_vertices, int vertices[], pixel cor_atual, pixel **imagem);
-void fill();
+void drawPolygon(int total_coordenadas, int vertices[], pixel cor_atual, pixel **imagem);
+void fill(int x, int y, pixel cor_atual, pixel cor_velha, pixel **imagem, int width, int height);
 void clear(int r, int g, int b, int width, int height, pixel **imagem);
 
 #endif

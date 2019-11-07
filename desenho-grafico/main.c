@@ -58,14 +58,14 @@ int main() {
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "polygon %d", &qtd_vertices);
 
-                    int total_vertices = qtd_vertices * 2;
+                    int total_coordenadas = qtd_vertices * 2;
 
-                    vertices = (int*)calloc(total_vertices, sizeof(int));
+                    vertices = (int *)calloc(total_coordenadas, sizeof(int));
 
-                    for (i = 0; i < total_vertices; i++) {
+                    for (i = 0; i < total_coordenadas; i++) {
                         fscanf(instrucoes, "%d ", &vertices[i]);
                     }
-                    drawPolygon(qtd_vertices, total_vertices, vertices, cor_atual, imagem);
+                    drawPolygon(total_coordenadas, vertices, cor_atual, imagem);
                 }
                 //RECTANGLE
                 else if (strstr(linha, "rect")) {
@@ -73,14 +73,23 @@ int main() {
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "rect %d %d %d %d\n", &x1, &y1, &x2, &y2);
                     drawRect(x1, y1, x2, y2, cor_atual, imagem);
-                }        
+                }
                 //CIRCLE
                 else if (strstr(linha, "circle")) {
                     int x, y, raio;
                     fseek(instrucoes, linha_atual, SEEK_SET);
                     fscanf(instrucoes, "circle %d %d %d\n", &x, &y, &raio);
                     drawCircle(x, y, raio, cor_atual, imagem, width, height);
-                }         
+                }
+                //FILL
+                else if (strstr(linha, "fill")) {
+                    int x_fill, y_fill;
+                    pixel cor_velha;
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "fill %d %d\n", &x_fill, &y_fill);
+                    cor_velha = imagem[y_fill][x_fill];
+                    fill(x_fill, y_fill, cor_atual, cor_velha, imagem, width, height);
+                }
                 //SAVE
                 else if (strstr(linha, "save")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);
