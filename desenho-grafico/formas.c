@@ -10,21 +10,21 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem) {
 
     if (x1 == x2) {
         if (y1 >= y2) {
-            for (i = y1; i > y2; i--) {
+            for (i = y1; i >= y2; i--) {
                 imagem[i][x1] = corAtual;
             }
         } else {
-            for (i = y2; i > y1; i--) {
+            for (i = y2; i >= y1; i--) {
                 imagem[i][x1] = corAtual;
             }
         }
     } else if (y1 == y2) {
         if (x1 >= x2) {
-            for (i = x1; i > x2; i--) {
+            for (i = x1; i >= x2; i--) {
                 imagem[y1][i] = corAtual;
             }
         } else {
-            for (i = x2; i > x1; i--) {
+            for (i = x2; i >= x1; i--) {
                 imagem[y1][i] = corAtual;
             }
         }
@@ -32,13 +32,13 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem) {
         if (x1 < x2) {
             if (y1 < y2) {
                 j = y1;
-                for (i = x1; i < x2; i++) {
+                for (i = x1; i <= x2; i++) {
                     imagem[j][i] = corAtual;
                     j++;
                 }
             } else {
                 j = y1;
-                for (i = x1; i < x2; i++) {
+                for (i = x1; i <= x2; i++) {
                     imagem[j][i] = corAtual;
                     j--;
                 }
@@ -46,13 +46,13 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem) {
         } else {
             if (y1 < y2) {
                 j = y2;
-                for (i = x2; i < x1; i++) {
+                for (i = x2; i <= x1; i++) {
                     imagem[j][i] = corAtual;
                     j--;
                 }
             } else {
                 j = y2;
-                for (i = x2; i < x1; i++) {
+                for (i = x2; i <= x1; i++) {
                     imagem[j][i] = corAtual;
                     j++;
                 }
@@ -75,7 +75,7 @@ void drawLine(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem) {
                     }
                 } else if (y1 > y2) {
                     j = y1;
-                    for (i = x1; i < x2; i++) {
+                    for (i = x1; i <= x2; i++) {
                         if (referencia >= 1) {
                             j--;
                             referencia = inclinacao + (referencia - 1);
@@ -259,7 +259,10 @@ void drawPolygon(int total_coordenadas, int vertices[], pixel cor_atual, pixel *
 
 void fill(int x, int y, pixel cor_atual, pixel cor_velha, pixel **imagem, int width, int height) {
     //verifica se x e y nao passaram dos limites da matriz e se ele está em pixel com uma cor diferente da atual (cor_atual) e igual a cor do pixel da primeira coordenada (cor_velha)
-    if (x >= 0 && y >= 0 && x < width && y < height && imagem[y][x].r == cor_velha.r && imagem[y][x].r != cor_atual.r && imagem[y][x].g == cor_velha.g && imagem[y][x].g != cor_atual.g && imagem[y][x].b == cor_velha.b && imagem[y][x].b != cor_atual.b) {
+    if (x >= 0 && y >= 0 && x < width && y < height && 
+    (imagem[y][x].r == cor_velha.r && imagem[y][x].r != cor_atual.r) || 
+    (imagem[y][x].g == cor_velha.g && imagem[y][x].g != cor_atual.g) || 
+    (imagem[y][x].b == cor_velha.b && imagem[y][x].b != cor_atual.b)) {
         //pinta
         imagem[y][x] = cor_atual;
         //chama o fill recursivamente em todas as direcoes até, tudo dentro dos limites, estiver pintado
