@@ -259,17 +259,16 @@ void drawPolygon(int total_coordenadas, int vertices[], pixel cor_atual, pixel *
 
 void fill(int x, int y, pixel cor_atual, pixel cor_velha, pixel **imagem, int width, int height) {
     //verifica se x e y nao passaram dos limites da matriz e se ele está em pixel com uma cor diferente da atual (cor_atual) e igual a cor do pixel da primeira coordenada (cor_velha)
-    if (x >= 0 && y >= 0 && x < width && y < height && 
-    (imagem[y][x].r == cor_velha.r && imagem[y][x].r != cor_atual.r) || 
-    (imagem[y][x].g == cor_velha.g && imagem[y][x].g != cor_atual.g) || 
-    (imagem[y][x].b == cor_velha.b && imagem[y][x].b != cor_atual.b)) {
-        //pinta
-        imagem[y][x] = cor_atual;
-        //chama o fill recursivamente em todas as direcoes até, tudo dentro dos limites, estiver pintado
-        fill(x + 1, y, cor_atual, cor_velha, imagem, width, height);
-        fill(x - 1, y, cor_atual, cor_velha, imagem, width, height);
-        fill(x, y + 1, cor_atual, cor_velha, imagem, width, height);
-        fill(x, y - 1, cor_atual, cor_velha, imagem, width, height);
+    if (x >= 0 && y >= 0 && x < width && y < height) {
+        if(imagem[y][x].r == cor_velha.r && imagem[y][x].g == cor_velha.g && imagem[y][x].b == cor_velha.b){
+            //pinta
+            imagem[y][x] = cor_atual;
+            //chama o fill recursivamente em todas as direcoes até tudo, dentro dos limites, estiver pintado
+            fill(x + 1, y, cor_atual, cor_velha, imagem, width, height);
+            fill(x - 1, y, cor_atual, cor_velha, imagem, width, height);
+            fill(x, y + 1, cor_atual, cor_velha, imagem, width, height);
+            fill(x, y - 1, cor_atual, cor_velha, imagem, width, height);
+        }
     }
     return;
 }
