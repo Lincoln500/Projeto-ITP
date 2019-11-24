@@ -20,6 +20,7 @@ void drawCircle(int x, int y, int raio, pixel corAtual, pixel **imagem, int widt
 void drawRect(int x1, int y1, int x2, int y2, pixel corAtual, pixel **imagem);
 void drawPolygon(int total_coordenadas, int vertices[], pixel cor_atual, pixel **imagem);
 void fill(int x, int y, pixel cor_atual, pixel cor_velha, pixel **imagem, int width, int height);
+void bezier(int forma, int total_coordenadas, int pontos[], pixel cor_atual, pixel **imagem);
 void clear(int r, int g, int b, int width, int height, pixel **imagem);
 
 #endif

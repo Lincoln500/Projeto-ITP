@@ -90,6 +90,27 @@ int main() {
                     cor_velha = imagem[y_fill][x_fill];
                     fill(x_fill, y_fill, cor_atual, cor_velha, imagem, width, height);
                 }
+                //BEZIER
+                else if (strstr(linha, "bezier")) {
+                    int forma, *pontos, total_coordenada;
+                    fseek(instrucoes, linha_atual, SEEK_SET);
+                    fscanf(instrucoes, "bezier %d", &forma);
+
+                    if(forma == 2){
+                        pontos = (int *)calloc(6, sizeof(int));
+                        for (i = 0; i < 6; i++) {
+                            fscanf(instrucoes, "%d ", &pontos[i]);
+                        }
+                    }
+                    else if(forma == 3){
+                        pontos = (int *)calloc(8, sizeof(int));
+                        for (i = 0; i < 8; i++) {
+                            fscanf(instrucoes, "%d ", &pontos[i]);
+                        }
+                    }
+
+                    bezier(forma, total_coordenada, pontos, cor_atual, imagem);
+                }             
                 //SAVE
                 else if (strstr(linha, "save")) {
                     fseek(instrucoes, linha_atual, SEEK_SET);

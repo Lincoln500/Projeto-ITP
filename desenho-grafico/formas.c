@@ -256,7 +256,6 @@ void drawPolygon(int total_coordenadas, int vertices[], pixel cor_atual, pixel *
     }
     drawLine(vertices[(total_coordenadas)-2], vertices[(total_coordenadas)-1], vertices[0], vertices[1], cor_atual, imagem);
 }
-
 void fill(int x, int y, pixel cor_atual, pixel cor_velha, pixel **imagem, int width, int height) {
     //verifica se x e y nao passaram dos limites da matriz e se ele está em pixel com uma cor diferente da atual (cor_atual) e igual a cor do pixel da primeira coordenada (cor_velha)
     if (x >= 0 && y >= 0 && x < width && y < height) {
@@ -271,6 +270,30 @@ void fill(int x, int y, pixel cor_atual, pixel cor_velha, pixel **imagem, int wi
         }
     }
     return;
+}
+void bezier(int forma, int total_coordenadas, int pontos[], pixel cor_atual, pixel **imagem){
+    int x1 = pontos[0], y1 = pontos[1], x2 = pontos[2], y2 = pontos[3], i = 0, j = 0;
+    double t = 0;
+    //Quadratica
+    if(forma == 2){
+        int inflexao_x = pontos[4], inflexao_y = pontos[5];
+        for(t=0;t<=1;t+=0.001){
+            i = fabs((pow(1-t, 2)*x1) + (2*t*(1-t)*inflexao_x) + (pow(t, 2)*x2));
+            j = fabs((pow(1-t, 2)*y1) + (2*t*(1-t)*inflexao_y) + (pow(t, 2)*y2));
+            imagem[j][i] = cor_atual;
+        }
+    }
+    //Cubica
+    else if(forma == 3){
+        int inflexao_x1 = pontos[4], inflexao_y1 = pontos[5], inflexao_x2 = pontos[6], inflexao_y2 = pontos[7];
+        for(t=0;t<=1;t+=0.001){
+            i = fabs((pow(1-t,3)*x1)+(3*t*pow(1-t,2)*inflexao_x1)+(3*pow(t,2)*(1-t)*inflexao_x2)+(pow(t,3)*x2));
+            j = fabs((pow(1-t,3)*y1)+(3*t*pow(1-t,2)*inflexao_y1)+(3*pow(t,2)*(1-t)*inflexao_y2)+(pow(t,3)*y2));
+            printf("%d %d pintou\n", i, j);
+            imagem[j][i] = cor_atual;
+        }
+    }
+    printf("Bezier desenhado\n");
 }
 void clear(int r, int g, int b, int width, int height, pixel **imagem) {
     int i, j;
